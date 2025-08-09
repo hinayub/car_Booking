@@ -9,7 +9,7 @@ import MyAdd from "./component/MyAdd";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CarDetail from "./component/CarDetail";
 import ShowAdDetail from "./component/ShowAdDetail";
-
+import Form from "./component/Form";
 export const userContext = createContext(null);
 
 const App = () => {
@@ -30,6 +30,7 @@ const App = () => {
             <Route path="/myAdd" element={<MyAdd />} />
             <Route path="/carDetail" element={<CarDetail />} />
             <Route path="/ShowAdDetail/:adId" element={<ShowAdDetail />} />
+            <Route path="/form/:id" element={<Form />} />
           </Routes>
           <Footer />
         </Router>

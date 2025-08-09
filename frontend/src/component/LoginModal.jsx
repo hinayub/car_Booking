@@ -21,6 +21,7 @@ const LoginModal = () => {
       .then((res) => {
         console.log(`here is ${res.data["name"]}`);
         setUsername(`Hi ${res.data["name"]}`);
+        console.log(res.data["id"]);
         setUserId(res.data["id"]);
         navigate("/home");
       })

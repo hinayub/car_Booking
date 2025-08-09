@@ -8,7 +8,9 @@ const Home = () => {
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/getAllAdds")
-      .then((res) => setAllAdd(res.data))
+      .then((res) => {
+        setAllAdd(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 

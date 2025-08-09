@@ -54,7 +54,7 @@ def upload_car(request):
     if serializer.is_valid():
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET"])
@@ -71,6 +71,50 @@ def getAllAdds(request):
 def adDetail(request, adId):
     carDetails = CarDetail.objects.get(id=adId)
     try:
+        serializer = CarDetailSerializer(carDetails)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["GET"])
+def userAdDetail(request, ownerId):
+    carDetails = CarDetail.objects.filter(owner=ownerId)
+    try:
+        serializer = CarDetailSerializer(carDetails, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["DELETE"])
+def userAdDelete(request, adId):
+    try:
+        carDetails = CarDetail.objects.get(id=adId)
+        carDetails.delete()
+        return Response({"msg": "ad deleted successfully"}, status=status.HTTP_200_OK)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["PUT"])
+def editAd(request, adId):
+    try:
+        carDetails = CarDetail.objects.get(id=adId)  # get the existing object
+    except CarDetail.DoesNotExist:
+        return Response({"error": "Ad not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = CarDetailSerializer(carDetails, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"msg": "ad updated successfully"}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def editAdDetail(request, id):
+    try:
+        carDetails = CarDetail.objects.get(id=id)
         serializer = CarDetailSerializer(carDetails)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:

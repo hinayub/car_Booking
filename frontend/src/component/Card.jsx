@@ -1,8 +1,9 @@
 import React from "react";
 import ShowAdDetail from "./ShowAdDetail";
 import { useNavigate } from "react-router-dom";
+import MyAdCardLinks from "./MyAdCardLinks";
 
-const Card = ({ items }) => {
+const Card = ({ items, fromWhere, setUserAd }) => {
   const navigate = useNavigate();
   const Detail = () => {
     navigate(`/ShowAdDetail/${items.id}`);
@@ -27,12 +28,21 @@ const Card = ({ items }) => {
           <span className="text-2xl font-bold text-gray-900 dark:text-white">
             {items.price} PKR
           </span>
-          <a
-            className="text-blue-500 font-bold cursor-pointer "
-            onClick={Detail}
-          >
-            View Detail
-          </a>
+          {fromWhere ? (
+            <MyAdCardLinks
+              detail={Detail}
+              id={items.id}
+              setUserAd={setUserAd}
+              oldData={items}
+            />
+          ) : (
+            <a
+              className="text-blue-500 font-bold cursor-pointer "
+              onClick={Detail}
+            >
+              View Detail
+            </a>
+          )}
         </div>
       </div>
     </div>
