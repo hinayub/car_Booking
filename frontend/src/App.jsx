@@ -15,6 +15,7 @@ export const userContext = createContext(null);
 const App = () => {
   const [userName, setUsername] = useState("Login");
   const [userId, setUserId] = useState();
+
   return (
     <>
       <userContext.Provider
@@ -23,7 +24,7 @@ const App = () => {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="/login" element={<LoginModal />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/home" element={<Home />} />

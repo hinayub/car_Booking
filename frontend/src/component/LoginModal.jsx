@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { userContext } from "../App";
 import axios from "axios";
 
 const LoginModal = () => {
   const navigate = useNavigate();
   const [getEmail, setgetEmail] = useState("");
   const [getPassword, setgetPassword] = useState("");
-  const { userName, setUsername, setUserId } = useContext(userContext);
   const [loginError, setLoginError] = useState("");
 
   const loginUser = () => {
@@ -19,9 +17,10 @@ const LoginModal = () => {
     axios
       .post("http://localhost:8000/api/login/", formdata)
       .then((res) => {
-        console.log(`here is ${res.data["name"]}`);
+        localStorage.setItem("userName", res.data["name"]);
         setUsername(`Hi ${res.data["name"]}`);
-        console.log(res.data["id"]);
+
+        localStorage.setItem("userId", res.data["id"]);
         setUserId(res.data["id"]);
         navigate("/home");
       })

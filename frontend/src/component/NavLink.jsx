@@ -14,7 +14,7 @@ const NavLink = () => {
       >
         Home
       </span>
-      {userName !== "Login" && (
+      {localStorage.getItem("userName") !== "Login" && (
         <span
           className=" font-[Inter] text-gray-500 text-lg cursor-pointer "
           onClick={() => navigate("/myAdd")}

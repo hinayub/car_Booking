@@ -9,8 +9,9 @@ import MyAdCardLinks from "./MyAdCardLinks";
 
 const MyAdd = () => {
   const navigate = useNavigate();
-  const { userId } = useContext(userContext);
+  // const { userId } = useContext(userContext);
   const [userAd, setUserAd] = useState([]);
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     axios

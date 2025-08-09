@@ -6,15 +6,19 @@ import { userContext } from "../App";
 const Login = () => {
   const navigate = useNavigate();
   const { userName, setuserName } = useContext(userContext);
+
+  const username = localStorage.getItem("userName");
   return (
     <>
       <div className="flex flex-row gap-4">
         <span className="userName font-[Inter]text-gray-500  text-lg">
-          {userName}{" "}
+          {username || "Login"}
         </span>
-        <div className="cursor-pointer " onClick={() => navigate("/login")}>
-          <i className="fas fa-power-off"></i>
-        </div>
+        {
+          <div className="cursor-pointer " onClick={() => navigate("/login")}>
+            <i className="fas fa-power-off"></i>
+          </div>
+        }
       </div>
     </>
   );

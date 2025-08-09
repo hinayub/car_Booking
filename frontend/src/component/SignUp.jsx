@@ -21,8 +21,10 @@ const SignUp = () => {
     axios
       .post("http://localhost:8000/api/signup/", formData)
       .then((res) => {
+        localStorage.setItem("userName", res.data["name"]);
         setuserName(res.data["name"]);
         navigate("/home");
+        localStorage.setItem("userId", res.data["id"]);
         setUserID(res.data["id"]);
       })
       .catch((err) => {
